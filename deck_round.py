@@ -1,39 +1,34 @@
-import random
+from random import shuffle 
 
-class Deck(object): 
-	"""Represents a deck of cards"""
-	#class properties
-	def __init__ (self, num):
-		self.cards = list(range(num))
+n = int(raw_input("Please enter the number of cards:"))
 
-	def shuffle(self):
-		"""Shuffles the cards in this deck"""
-		random.shuffle(self.cards)
+def cardCycle(n):
+	nlist= range(1, n+1)
+	shuffle(nlist)
+	hand_deck = nlist
+	original = []
+	original.extend(nlist)
+	table_deck = []
+	cycle = 0
+	while True:
+		while hand_deck:
+			table_deck.insert(0, hand_deck.pop(0))
+			if hand_deck:
+				hand_deck.append(hand_deck.pop(0))
+		#swap 
+		hand_deck, table_deck = table_deck, hand_deck
+		# print hand_deck
+		#increment cycle round
+		cycle += 1
+		if hand_deck == original:
+			break
 
-	def add_card(self):
-		"""Add a card to the bottom of the deck"""
-		self.card.append(card)
+	return cycle
 
-	def remove_card(self):
-		"""Remove a card from the top"""
-		return self.card.pop(0)
+print cardCycle(n)
 
-	def move_to_table(self, table, num_cards):
-		"""Move top card from top of the deck to the table"""
-		for i in self.cards:
-			hand.add_card(self.pop_card(0))
-
-	def move_to_bottom (self, num_cards):
-		"""Move top card to bottom of the deck"""
-		for i in self.cards:
-			self.cards.add_card(self.pop(0))
-
-class Table(Deck):
-	""" Represents the deck on the table"""
-	def __init__ (self):
-		self.cards = []
+# first: need to distribute the cards until the deck is no more
+# second: deck = table deck 
+# third: repeat 1 and 2 until table deck is in sorted order
 
 
-first_deck = Deck(5)
-first_deck.shuffle()
-print first_deck.cards
